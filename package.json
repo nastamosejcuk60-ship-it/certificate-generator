@@ -1,0 +1,48 @@
+{
+  "client_info": {
+    "name": "Салон красоты Bella",
+    "description": "Подарочные сертификаты салона красоты",
+    "website": "https://bella-salon.ru"
+  },
+  "email_settings": {
+    "gmail_address": "your-gmail@gmail.com",
+    "gmail_app_password": "your-16-character-app-password",
+    "sender_name": "Салон красоты Bella",
+    "subject_template": "Ваш подарочный сертификат на {amount} руб."
+  },
+  "google_sheets": {
+    "enabled": true,
+    "spreadsheet_id": "1ABC123DEF456GHI789JKL",
+    "service_account_email": "certificates@your-project.iam.gserviceaccount.com",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nВАШ_ПРИВАТНЫЙ_КЛЮЧ_ЗДЕСЬ\n-----END PRIVATE KEY-----\n"
+  },
+  "certificate_template": {
+    "template_id": "client-template-001",
+    "template_name": "Сертификат Bella",
+    "pdf_file_path": "./templates/bella-certificate.pdf",
+    "field_positions": {
+      "first_name": { "x": 250, "y": 515, "fontSize": 20, "color": "#000000" },
+      "last_name": { "x": 350, "y": 515, "fontSize": 20, "color": "#000000" },
+      "amount": { "x": 275, "y": 435, "fontSize": 18, "color": "#cc9900" },
+      "issue_date": { "x": 180, "y": 150, "fontSize": 12, "color": "#666666" },
+      "certificate_code": { "x": 430, "y": 150, "fontSize": 10, "color": "#666666" },
+      "message": { "x": 100, "y": 550, "fontSize": 14, "color": "#333333", "maxWidth": 400 }
+    }
+  },
+  "tilda_integration": {
+    "webhook_url": "https://your-app.railway.app/api/v1/certificates",
+    "api_key": "your-super-secret-api-key-here",
+    "form_fields_mapping": {
+      "Name": "first_name",
+      "Surname": "last_name", 
+      "Email": "recipient_email",
+      "Sum": "amount",
+      "Message": "message"
+    }
+  },
+  "certificate_settings": {
+    "expiry_days": 365,
+    "default_message": "Поздравляем с получением подарочного сертификата!",
+    "verification_enabled": true
+  }
+}
