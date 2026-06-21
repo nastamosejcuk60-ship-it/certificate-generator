@@ -1,20 +1,34 @@
-# Основные настройки
-PORT=3000
-NODE_ENV=development
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = process.env.PORT || 3000;
 
-# API ключи (генерируйте случайные строки)
-API_KEY=your-secret-api-key-here
+app.use(cors());
+app.use(express.json());
 
-# Email настройки (Gmail)
-EMAIL_USER=your-gmail@gmail.com
-EMAIL_PASS=your-app-password
-EMAIL_FROM_NAME=Ваша компания
+// Проверка работы сервера
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Сервер работает!' });
+});
 
-# Google Sheets (получите из Google Cloud Console)
-GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----\n"
-GOOGLE_SHEETS_CLIENT_EMAIL=your-service-account@your-project.iam.gserviceaccount.com
-GOOGLE_SHEETS_SPREADSHEET_ID=your-spreadsheet-id
+// Генерация сертификата
+app.post('/api/v1/certificates', (req, res) => {
+  const { first_name, last_name, recipient_email } = req.body;
+  
+  if (!first_name || !last_name || !recipient_email) {
+    return res.status(400).json({ 
+      error: 'Пожалуйста, заполните все поля: имя, фамилия, email' 
+    });
+  }
 
-# Настройки сертификатов
-CERTIFICATE_EXPIRY_DAYS=365
-BASE_URL=http://localhost:3000
+  // Здесь будет генерация PDF и отправка письма
+  res.json({ 
+    status: 'success', 
+    message: 'Сертификат отправлен на почту',
+    data: { first_name, last_name, recipient_email }
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
+});
